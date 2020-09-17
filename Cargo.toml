@@ -1,0 +1,11 @@
+[package]
+name = "cellular_automata"
+version = "0.1.0"
+authors = ["sampo"]
+
+[dependencies]
+sdl2 = "0.31.0"
+image = "0.19.0"
+bit-array = "0.4.4"
+typenum = "1.10.0"
+rand = "0.5.2"
