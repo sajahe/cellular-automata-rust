@@ -22,7 +22,7 @@ mod setup;
 use self::rand::prelude::*;
 
 // Construct a new ImageBuffer with the specified width and height.
-
+//https://doc.rust-lang.org/book/ch11-01-writing-tests.html
 fn create_random_generation(gen:&mut HashMap<game_of_life::Coordinates, bool>) {
 
     gen.clear();
@@ -60,14 +60,14 @@ fn main() {
     //Here the rule should be get. If no rule than some default rule.
     let args: Vec<String> = env::args().collect();
     let cell_size = 2;
-    //let life_rule = setup::build_life_rule([false,false,false,true,false,false,true,false,false], [false,true,true,false,false,true,false,false,false]);
+    let life_rule = setup::build_life_rule([false,false,false,true,false,false,true,false,false], [false,true,true,false,false,true,false,false,false]);
     //let life_rule = setup::build_life_rule([false,false,true,true,false,false,false,false,false], [false,false,false,true,true,false,false,false,false]);
     //let life_rule = setup::build_life_rule([false,false,true,false,true,false,false,false,false], [false,false,false,false,true,false,false,false,false]);
-    let life_rule = setup::build_life_rule([false,false,true,false,false,false,false,false,false], [false,false,false,false,false,false,false,false,false]);
-    //let life_rule = ::setup::build_life_rule([false,false,false,true,false,false,false,false,false],
+    //let life_rule = setup::build_life_rule([false,false,true,false,false,false,false,false,false], [false,false,false,false,false,false,false,false,false]);
+    //let life_rulegraphics = ::setup::build_life_rule([false,false,false,true,false,false,false,false,false],
     //                                        [false,false,true,true,false,false,false,false,false]);
     //assert_eq!(true, check_rule(&[true,false,false],30));
-
+    println!("{}",args[0]);
     match args[1].as_ref() {
         "elementary" => println!("Elementary"),
         "gol" => println!("Game of life also"),
@@ -76,6 +76,7 @@ fn main() {
     }
 
     let query = &args[1];
+
     let rule = &args[2];
     println!("Using {} {}", query, rule);
     if query == "rule"{
@@ -108,10 +109,10 @@ fn main() {
         first_gen.insert(game_of_life::Coordinates{x:20,y:24},true);
         */
         } else {
-
+            println!("Game of life");
             //create_random_generation(&mut first_gen);
             create_random_generation_vector(&mut first_gen);
-            return;
+            //return;
         }
 
         //let generation= game_of_life::create_next_generation(first_gen);
@@ -127,7 +128,8 @@ fn main() {
         canvas.set_draw_color(Color::RGB(0, 0, 0));
 
         canvas.clear();
-        for cell in  &first_gen {https://doc.rust-lang.org/book/ch11-01-writing-tests.html
+        for cell in  &first_gen {
+            println!("Game of life");
             if cell.alive {
                 canvas.set_draw_color(Color::RGB(0, 255, 0));
             } else {
@@ -211,4 +213,18 @@ fn main() {
             }
         }
 
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn internal() {
+        let mut first_gen: Vec<game_of_life::CellCoordinates> = Vec::new();
+        //let life_rule = setup::build_life_rule([false,false,false,true,false,false,true,false,false], [false,true,true,false,false,true,false,false,false]);
+        //let mut generation= game_of_life::create_next_generation_concurrent(&first_gen, &life_rule);
+        create_random_generation_vector(&mut first_gen);
+        assert_eq!(300, first_gen.len());
+    }
 }
